@@ -1,32 +1,33 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Login = () => {
-  const [loginUserName, setLoginUserName] = useState('');
-  const [loginPassword, setLoginPassword] = useState('');
+  const [loginUserName, setLoginUserName] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
   const navigate = useNavigate();
 
   const loginUser = async (e) => {
     e.preventDefault(); // Prevent page reload
 
     try {
-      const response = await axios.post('http://localhost:3002/login', {
+      const response = await axios.post("http://localhost:3002/login", {
         LoginUserName: loginUserName,
-        LoginPassword: loginPassword
+        LoginPassword: loginPassword,
       });
 
       console.log(response.data);
 
-      if (response.data.message === 'User found') {
-        navigate('/dashboard');
+      if (response.data.message === "User found") {
+        toast.success("Login Successful! 🚀", { position: "top-right" });
+        navigate("/admindashboard");
       } else {
-        alert('Invalid credentials');
-        navigate('/');
+        toast.error("Invalid Credentials ❌", { position: "top-right" });
       }
     } catch (error) {
-      console.error('Login error:', error);
-      alert('An error occurred during login');
+      console.error("Login error:", error);
+      toast.error("An error occurred during login ❗");
     }
   };
 
