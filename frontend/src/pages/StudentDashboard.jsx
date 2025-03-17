@@ -1,9 +1,10 @@
 import React from 'react'
+import StudentSidebar from '../components/StudentSidebar'
 
 const StudentDashboard = () => {
   return (
     <div>
-      student
+      <StudentSidebar/>
     </div>
   )
 }
